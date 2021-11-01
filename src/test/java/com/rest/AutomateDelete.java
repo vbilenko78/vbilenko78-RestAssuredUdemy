@@ -10,11 +10,10 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
-import static io.restassured.RestAssured.with;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-public class AutomatePut {
+public class AutomateDelete {
 
     @BeforeClass
     public void beforeClass() {
@@ -32,9 +31,10 @@ public class AutomatePut {
     }
 
     @Test
-    public void put_request() {
+    public void delete_request() {
 
-        String id = "18aab4d2-3a39-47ab-8cf4-2c70f9a57da4";
+        String id = "a636ef33-8609-46f8-a3f5-1a8f39c9553c";
+
         String payload = "{\n" +
                 "    \"workspace\": {\n" +
                 "        \"name\": \"My Workspace\",\n" +
@@ -46,12 +46,12 @@ public class AutomatePut {
         Response res = given().
                 body(payload).
                 when().
-                put("/workspaces/" + id).
+                delete("/workspaces/" + id).
                 then().
                 log().all().
                 statusCode(200).
                 extract().response();
-        assertThat(res.path("workspace.name"), equalTo("My Workspace    "));
+        assertThat(res.path("workspace.id"), equalTo(id));
     }
 
 
